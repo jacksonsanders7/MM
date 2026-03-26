@@ -95,6 +95,42 @@ main {
   align-items: end;
 }
 
+.account-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.account-form {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.card-lite {
+  background: #f7faff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem;
+}
+
+.account-list ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.account-list li {
+  margin-bottom: 0.35rem;
+}
+
+.success-message {
+  min-height: 1.2rem;
+  color: #17663d;
+  font-weight: 600;
+}
+
 label {
   display: grid;
   gap: 0.35rem;
