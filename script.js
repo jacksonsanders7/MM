@@ -1,4 +1,5 @@
 const defaultTutors = [
+const tutors = [
   {
     name: "Aaliyah R.",
     grade: "11th Grade",
@@ -107,6 +108,8 @@ function normalizeSubjects(value) {
 
 function populateSubjects() {
   subjectFilter.innerHTML = '<option value="all">All subjects</option>';
+
+function populateSubjects() {
   const subjects = [...new Set(tutors.flatMap((tutor) => tutor.subjects))].sort();
 
   subjects.forEach((subject) => {
@@ -188,6 +191,26 @@ function renderAccountLists() {
       tutorAccountList.append(item);
     });
   }
+function renderTutors(list) {
+  if (!list.length) {
+    grid.innerHTML = '<p class="card">No tutors match those filters yet. Try broadening your search.</p>';
+    return;
+  }
+
+  grid.innerHTML = list
+    .map(
+      (tutor) => `
+      <article class="card tutor-card">
+        <h3>${tutor.name}</h3>
+        <p class="meta">${tutor.grade} • $${tutor.rate}/hr</p>
+        <p>${tutor.bio}</p>
+        <div class="tags">
+          ${tutor.subjects.map((subject) => `<span class="tag">${subject}</span>`).join("")}
+        </div>
+      </article>
+    `
+    )
+    .join("");
 }
 
 function applyFilters() {
@@ -200,6 +223,12 @@ function applyFilters() {
     const rateMatch = tutor.rate <= maxRate;
     const text = `${tutor.name} ${tutor.subjects.join(" ")} ${tutor.bio}`.toLowerCase();
     const queryMatch = !query || text.includes(query);
+    const subjectMatch =
+      selectedSubject === "all" || tutor.subjects.includes(selectedSubject);
+    const rateMatch = tutor.rate <= maxRate;
+    const text = `${tutor.name} ${tutor.subjects.join(" ")} ${tutor.bio}`.toLowerCase();
+    const queryMatch = !query || text.includes(query);
+
     return subjectMatch && rateMatch && queryMatch;
   });
 
@@ -298,3 +327,5 @@ tutorAccountForm.addEventListener("submit", (event) => {
 populateSubjects();
 renderTutors(tutors);
 renderAccountLists();
+populateSubjects();
+renderTutors(tutors);
