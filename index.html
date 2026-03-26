@@ -28,53 +28,6 @@
     </header>
 
     <main class="container">
-      <section class="card">
-        <h2>Create an account</h2>
-        <p class="meta">
-          Join Mentor Moose as a student learner or as a student tutor.
-        </p>
-        <div class="account-grid">
-          <form id="studentAccountForm" class="account-form">
-            <h3>Student Account</h3>
-            <label>
-              Name
-              <input id="studentName" type="text" required />
-            </label>
-            <label>
-              Email
-              <input id="studentEmail" type="email" required />
-            </label>
-            <label>
-              Grade / School year
-              <input id="studentGrade" type="text" placeholder="e.g. 9th Grade" required />
-            </label>
-            <button type="submit" class="btn">Create Student Account</button>
-          </form>
-
-          <form id="tutorAccountForm" class="account-form">
-            <h3>Tutor Account</h3>
-            <label>
-              Name
-              <input id="tutorName" type="text" required />
-            </label>
-            <label>
-              Email
-              <input id="tutorEmail" type="email" required />
-            </label>
-            <label>
-              Subjects (comma separated)
-              <input id="tutorSubjects" type="text" placeholder="e.g. Algebra, Biology" required />
-            </label>
-            <label>
-              Hourly rate ($)
-              <input id="tutorRate" type="number" min="10" max="100" step="1" value="25" required />
-            </label>
-            <button type="submit" class="btn">Create Tutor Account</button>
-          </form>
-        </div>
-        <p id="accountMessage" class="success-message" aria-live="polite"></p>
-      </section>
-
       <section class="controls card">
         <h2>Browse tutors</h2>
         <form id="filterForm">

@@ -6,10 +6,7 @@ It is designed to work out-of-the-box on GitHub Pages.
 ## Features
 
 - Tutor marketplace landing page
-- Account creation forms for student and tutor roles
-- Built-in demo tutor listings
-- Client-side filters by subject, max hourly rate, and text search
-- Tutor accounts are persisted in browser localStorage and added to listings
+
 - No build tooling required (pure HTML/CSS/JS)
 
 ## Deploy to GitHub Pages

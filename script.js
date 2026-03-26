@@ -1,4 +1,4 @@
-const defaultTutors = [
+const tutors = [
   {
     name: "Aaliyah R.",
     grade: "11th Grade",
@@ -43,68 +43,13 @@ const defaultTutors = [
   },
 ];
 
-const STUDENT_STORAGE_KEY = "mentorMooseStudents";
-const TUTOR_STORAGE_KEY = "mentorMooseTutorAccounts";
-
 const grid = document.getElementById("tutors");
 const filterForm = document.getElementById("filterForm");
 const subjectFilter = document.getElementById("subjectFilter");
 const rateFilter = document.getElementById("rateFilter");
 const searchFilter = document.getElementById("searchFilter");
-const studentAccountForm = document.getElementById("studentAccountForm");
-const tutorAccountForm = document.getElementById("tutorAccountForm");
-const accountMessage = document.getElementById("accountMessage");
-
-function generateId() {
-  if (window.crypto && typeof window.crypto.randomUUID === "function") {
-    return window.crypto.randomUUID();
-  }
-
-  return `id-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-function loadFromStorage(key) {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(key) || "[]");
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveToStorage(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-const studentAccounts = loadFromStorage(STUDENT_STORAGE_KEY);
-const tutorAccounts = loadFromStorage(TUTOR_STORAGE_KEY);
-const tutors = [...defaultTutors, ...tutorAccounts];
-
-function showAccountMessage(message, isError = false) {
-  accountMessage.textContent = message;
-  accountMessage.style.color = isError ? "#9e1f35" : "#17663d";
-
-  window.setTimeout(() => {
-    if (accountMessage.textContent === message) {
-      accountMessage.textContent = "";
-    }
-  }, 3500);
-}
-
-function normalizeSubjects(value) {
-  return value
-    .split(",")
-    .map((subject) => subject.trim())
-    .filter(Boolean);
-}
 
 function populateSubjects() {
-  subjectFilter.innerHTML = '<option value="all">All subjects</option>';
   const subjects = [...new Set(tutors.flatMap((tutor) => tutor.subjects))].sort();
 
   subjects.forEach((subject) => {
@@ -115,48 +60,26 @@ function populateSubjects() {
   });
 }
 
-function createTutorCard(tutor) {
-  const article = document.createElement("article");
-  article.className = "card tutor-card";
-
-  const name = document.createElement("h3");
-  name.textContent = tutor.name;
-
-  const meta = document.createElement("p");
-  meta.className = "meta";
-  meta.textContent = `${tutor.grade} • $${tutor.rate}/hr`;
-
-  const bio = document.createElement("p");
-  bio.textContent = tutor.bio;
-
-  const tags = document.createElement("div");
-  tags.className = "tags";
-
-  tutor.subjects.forEach((subject) => {
-    const tag = document.createElement("span");
-    tag.className = "tag";
-    tag.textContent = subject;
-    tags.append(tag);
-  });
-
-  article.append(name, meta, bio, tags);
-  return article;
-}
-
 function renderTutors(list) {
-  grid.innerHTML = "";
-
   if (!list.length) {
-    const empty = document.createElement("p");
-    empty.className = "card";
-    empty.textContent = "No tutors match those filters yet. Try broadening your search.";
-    grid.append(empty);
+    grid.innerHTML = '<p class="card">No tutors match those filters yet. Try broadening your search.</p>';
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  list.forEach((tutor) => fragment.append(createTutorCard(tutor)));
-  grid.append(fragment);
+  grid.innerHTML = list
+    .map(
+      (tutor) => `
+      <article class="card tutor-card">
+        <h3>${tutor.name}</h3>
+        <p class="meta">${tutor.grade} • $${tutor.rate}/hr</p>
+        <p>${tutor.bio}</p>
+        <div class="tags">
+          ${tutor.subjects.map((subject) => `<span class="tag">${subject}</span>`).join("")}
+        </div>
+      </article>
+    `
+    )
+    .join("");
 }
 
 function applyFilters() {
@@ -165,10 +88,12 @@ function applyFilters() {
   const query = searchFilter.value.trim().toLowerCase();
 
   const filtered = tutors.filter((tutor) => {
-    const subjectMatch = selectedSubject === "all" || tutor.subjects.includes(selectedSubject);
+    const subjectMatch =
+      selectedSubject === "all" || tutor.subjects.includes(selectedSubject);
     const rateMatch = tutor.rate <= maxRate;
     const text = `${tutor.name} ${tutor.subjects.join(" ")} ${tutor.bio}`.toLowerCase();
     const queryMatch = !query || text.includes(query);
+
     return subjectMatch && rateMatch && queryMatch;
   });
 
@@ -178,88 +103,6 @@ function applyFilters() {
 filterForm.addEventListener("submit", (event) => {
   event.preventDefault();
   applyFilters();
-});
-
-studentAccountForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const name = document.getElementById("studentName").value.trim();
-  const email = document.getElementById("studentEmail").value.trim().toLowerCase();
-  const grade = document.getElementById("studentGrade").value.trim();
-
-  const duplicate = studentAccounts.some((account) => account.email === email);
-  if (duplicate) {
-    showAccountMessage("A student account with that email already exists.", true);
-    return;
-  }
-
-  const account = {
-    id: generateId(),
-    role: "student",
-    name,
-    email,
-    grade,
-    createdAt: new Date().toISOString(),
-  };
-
-  studentAccounts.push(account);
-  const saved = saveToStorage(STUDENT_STORAGE_KEY, studentAccounts);
-
-  if (!saved) {
-    showAccountMessage("Unable to save student account in this browser.", true);
-    studentAccounts.pop();
-    return;
-  }
-
-  studentAccountForm.reset();
-  showAccountMessage(`Student account created for ${name}.`);
-});
-
-tutorAccountForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const name = document.getElementById("tutorName").value.trim();
-  const email = document.getElementById("tutorEmail").value.trim().toLowerCase();
-  const subjects = normalizeSubjects(document.getElementById("tutorSubjects").value);
-  const rate = Number(document.getElementById("tutorRate").value);
-
-  if (!subjects.length) {
-    showAccountMessage("Please provide at least one tutor subject.", true);
-    return;
-  }
-
-  const duplicate = tutorAccounts.some((account) => account.email === email);
-  if (duplicate) {
-    showAccountMessage("A tutor account with that email already exists.", true);
-    return;
-  }
-
-  const account = {
-    id: generateId(),
-    role: "tutor",
-    name,
-    email,
-    grade: "Student Tutor",
-    subjects,
-    rate,
-    bio: "New mentor on Mentor Moose.",
-    createdAt: new Date().toISOString(),
-  };
-
-  tutorAccounts.push(account);
-  const saved = saveToStorage(TUTOR_STORAGE_KEY, tutorAccounts);
-
-  if (!saved) {
-    showAccountMessage("Unable to save tutor account in this browser.", true);
-    tutorAccounts.pop();
-    return;
-  }
-
-  tutors.push(account);
-  populateSubjects();
-  applyFilters();
-  tutorAccountForm.reset();
-  showAccountMessage(`Tutor account created for ${name}.`);
 });
 
 populateSubjects();
