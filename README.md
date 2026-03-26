@@ -6,8 +6,7 @@ It is designed to work out-of-the-box on GitHub Pages.
 ## Features
 
 - Tutor marketplace landing page
-- Built-in demo tutor listings
-- Client-side filters by subject, max hourly rate, and text search
+
 - No build tooling required (pure HTML/CSS/JS)
 
 ## Deploy to GitHub Pages
