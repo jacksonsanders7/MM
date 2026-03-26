@@ -12,6 +12,17 @@
         <div>
           <p class="eyebrow">Student-to-Student Tutoring</p>
           <h1>Mentor Moose</h1>
+          <p class="lead">Marketplace where students tutor students.</p>
+          <nav class="nav-links">
+            <a class="btn" href="student-signup.html">Student Sign Up</a>
+            <a class="btn" href="tutor-signup.html">Tutor Sign Up</a>
+            <a class="btn" href="login.html">Login</a>
+            <a class="btn" href="admin.html">Admin</a>
+          </nav>
+        </div>
+        <div class="card mascot">
+          <div class="emoji">🫎📚</div>
+          <p>Find peer tutors by subject and budget.</p>
           <p class="lead">
             A friendly marketplace where students tutor students in math, science,
             writing, coding, and more.
@@ -96,6 +107,11 @@
           </label>
           <label>
             Max hourly rate ($)
+            <input id="rateFilter" type="number" min="10" max="200" step="5" value="60" />
+          </label>
+          <label>
+            Search name or skill
+            <input id="searchFilter" type="text" placeholder="e.g. algebra" />
             <input id="rateFilter" type="number" min="10" max="100" step="5" value="60" />
           </label>
           <label>
@@ -105,6 +121,7 @@
           <button type="submit" class="btn">Apply Filters</button>
         </form>
       </section>
+      <section id="tutors" class="grid"></section>
 
       <section id="tutors" class="grid"></section>
 
@@ -120,6 +137,7 @@
 
     <footer>
       <div class="container">
+        <p>Mentor Moose demo for GitHub Pages.</p>
         <p>Mentor Moose demo for GitHub Pages • Built with plain HTML, CSS, and JavaScript.</p>
       </div>
     </footer>
