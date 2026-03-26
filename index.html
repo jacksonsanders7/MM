@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Moose</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Student-to-Student Tutoring</p>
+          <h1>Mentor Moose</h1>
+          <p class="lead">
+            A friendly marketplace where students tutor students in math, science,
+            writing, coding, and more.
+          </p>
+          <a href="#tutors" class="btn">Find a Tutor</a>
+        </div>
+        <div class="card mascot">
+          <div class="emoji">🫎📚</div>
+          <p>
+            Learn from peers who recently mastered your classes.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Create an account</h2>
+        <p class="meta">
+          Join Mentor Moose as a student learner or as a student tutor.
+        </p>
+        <div class="account-grid">
+          <form id="studentAccountForm" class="account-form">
+            <h3>Student Account</h3>
+            <label>
+              Name
+              <input id="studentName" type="text" required />
+            </label>
+            <label>
+              Email
+              <input id="studentEmail" type="email" required />
+            </label>
+            <label>
+              Grade / School year
+              <input id="studentGrade" type="text" placeholder="e.g. 9th Grade" required />
+            </label>
+            <button type="submit" class="btn">Create Student Account</button>
+          </form>
+
+          <form id="tutorAccountForm" class="account-form">
+            <h3>Tutor Account</h3>
+            <label>
+              Name
+              <input id="tutorName" type="text" required />
+            </label>
+            <label>
+              Email
+              <input id="tutorEmail" type="email" required />
+            </label>
+            <label>
+              Subjects (comma separated)
+              <input id="tutorSubjects" type="text" placeholder="e.g. Algebra, Biology" required />
+            </label>
+            <label>
+              Hourly rate ($)
+              <input id="tutorRate" type="number" min="10" max="100" step="1" value="25" required />
+            </label>
+            <button type="submit" class="btn">Create Tutor Account</button>
+          </form>
+        </div>
+        <p id="accountMessage" class="success-message" aria-live="polite"></p>
+      </section>
+
+      <section class="controls card">
+        <h2>Browse tutors</h2>
+        <form id="filterForm">
+          <label>
+            Subject
+            <select id="subjectFilter">
+              <option value="all">All subjects</option>
+            </select>
+          </label>
+          <label>
+            Max hourly rate ($)
+            <input id="rateFilter" type="number" min="10" max="100" step="5" value="60" />
+          </label>
+          <label>
+            Search name or skill
+            <input id="searchFilter" type="text" placeholder="e.g. calculus or jamie" />
+          </label>
+          <button type="submit" class="btn">Apply Filters</button>
+        </form>
+      </section>
+
+      <section id="tutors" class="grid"></section>
+
+      <section class="card how-it-works">
+        <h2>How it works</h2>
+        <ol>
+          <li>Students create tutor profiles with subjects, rates, and availability.</li>
+          <li>Other students browse and filter tutors based on their needs.</li>
+          <li>Request a session and connect using your school-approved tools.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Mentor Moose demo for GitHub Pages • Built with plain HTML, CSS, and JavaScript.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
