@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Moose • Student Sign Up</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container page-main">
+      <section class="card narrow">
+        <h1>Create Student Account</h1>
+        <form id="studentForm" class="account-form">
+          <label>Name<input id="studentName" type="text" required /></label>
+          <label>Email<input id="studentEmail" type="email" required /></label>
+          <label>Grade<input id="studentGrade" type="text" required /></label>
+          <label>Password<input id="studentPassword" type="password" minlength="4" required /></label>
+          <button class="btn" type="submit">Create Student Account</button>
+        </form>
+        <p id="studentMessage" class="success-message" aria-live="polite"></p>
+        <p><a href="index.html">Back to home</a></p>
+      </section>
+    </main>
+    <script src="student-signup.js"></script>
+  </body>
+</html>

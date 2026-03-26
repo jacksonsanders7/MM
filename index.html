@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Moose</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Student-to-Student Tutoring</p>
+          <h1>Mentor Moose</h1>
+          <p class="lead">Marketplace where students tutor students.</p>
+          <nav class="nav-links">
+            <a class="btn" href="student-signup.html">Student Sign Up</a>
+            <a class="btn" href="tutor-signup.html">Tutor Sign Up</a>
+            <a class="btn" href="login.html">Login</a>
+            <a class="btn" href="admin.html">Admin</a>
+          </nav>
+        </div>
+        <div class="card mascot">
+          <div class="emoji">🫎📚</div>
+          <p>Find peer tutors by subject and budget.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="controls card">
+        <h2>Browse tutors</h2>
+        <form id="filterForm">
+          <label>
+            Subject
+            <select id="subjectFilter">
+              <option value="all">All subjects</option>
+            </select>
+          </label>
+          <label>
+            Max hourly rate ($)
+            <input id="rateFilter" type="number" min="10" max="200" step="5" value="200" />
+          </label>
+          <label>
+            Search name or skill
+            <input id="searchFilter" type="text" placeholder="e.g. algebra" />
+          </label>
+          <button type="submit" class="btn">Apply Filters</button>
+        </form>
+      </section>
+      <section id="tutors" class="grid"></section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Mentor Moose demo for GitHub Pages.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
