@@ -9,6 +9,37 @@ const defaultTutors = [
 function loadTutors() {
   try {
     const stored = JSON.parse(localStorage.getItem(TUTOR_STORAGE_KEY) || "[]");
+    if (!Array.isArray(stored)) {
+      return [];
+    }
+
+    return stored
+      .map((tutor) => {
+        if (!tutor || typeof tutor !== "object") {
+          return null;
+        }
+
+        const subjects = Array.isArray(tutor.subjects)
+          ? tutor.subjects.filter(Boolean)
+          : typeof tutor.subjects === "string"
+            ? tutor.subjects.split(",").map((subject) => subject.trim()).filter(Boolean)
+            : [];
+
+        const rate = Number(tutor.rate);
+
+        if (typeof tutor.name !== "string" || !subjects.length || Number.isNaN(rate)) {
+          return null;
+        }
+
+        return {
+          ...tutor,
+          subjects,
+          rate,
+          bio: tutor.bio || "Student tutor profile.",
+          grade: tutor.grade || "Student Tutor",
+        };
+      })
+      .filter(Boolean);
     return Array.isArray(stored) ? stored : [];
 const defaultTutors = [
 const tutors = [
@@ -206,6 +237,36 @@ function renderTutors(list) {
   grid.append(fragment);
 }
 
+function showRecentlyCreatedTutor() {
+  const params = new URLSearchParams(window.location.search);
+  const tutorId = params.get("newTutor");
+
+  if (!tutorId) {
+    return;
+  }
+
+  const match = tutors.find((tutor) => tutor.id === tutorId);
+  if (!match) {
+    return;
+  }
+
+  subjectFilter.value = "all";
+  rateFilter.value = "200";
+  searchFilter.value = "";
+  renderTutors([match, ...tutors.filter((tutor) => tutor.id !== tutorId)]);
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+function applyFilters() {
+  const subject = subjectFilter.value;
+  const maxRate = Number(rateFilter.value) || 999;
+  const query = searchFilter.value.trim().toLowerCase();
+
+  const filtered = tutors.filter((tutor) => {
+    const subjectMatch = subject === "all" || tutor.subjects.includes(subject);
+    const rateMatch = Number(tutor.rate) <= maxRate;
+    const text = `${tutor.name} ${tutor.subjects.join(" ")} ${tutor.bio || ""}`.toLowerCase();
+    const queryMatch = !query || text.includes(query);
 function applyFilters() {
   const subject = subjectFilter.value;
   const maxRate = Number(rateFilter.value) || 999;
@@ -292,6 +353,9 @@ filterForm.addEventListener("submit", (event) => {
   applyFilters();
 });
 
+populateSubjects();
+renderTutors(tutors);
+showRecentlyCreatedTutor();
 studentAccountForm.addEventListener("submit", (event) => {
   event.preventDefault();
 

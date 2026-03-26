@@ -54,8 +54,14 @@ form.addEventListener("submit", (event) => {
     password,
   });
 
+  const newTutor = tutors[tutors.length - 1];
+
   saveTutors(tutors);
   form.reset();
   message.textContent = `Tutor account created for ${name}.`;
   message.style.color = "#17663d";
+
+  setTimeout(() => {
+    window.location.href = `index.html?newTutor=${encodeURIComponent(newTutor.id)}`;
+  }, 600);
 });
