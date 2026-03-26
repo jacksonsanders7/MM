@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Moose • Tutor Sign Up</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container page-main">
+      <section class="card narrow">
+        <h1>Create Tutor Account</h1>
+        <form id="tutorForm" class="account-form">
+          <label>Name<input id="tutorName" type="text" required /></label>
+          <label>Email<input id="tutorEmail" type="email" required /></label>
+          <label>Subjects (comma separated)<input id="tutorSubjects" type="text" required /></label>
+          <label>Hourly Rate ($)<input id="tutorRate" type="number" min="10" max="200" required /></label>
+          <label>Password<input id="tutorPassword" type="password" minlength="4" required /></label>
+          <button class="btn" type="submit">Create Tutor Account</button>
+        </form>
+        <p id="tutorMessage" class="success-message" aria-live="polite"></p>
+        <p><a href="index.html">Back to home</a></p>
+      </section>
+    </main>
+    <script src="tutor-signup.js"></script>
+  </body>
+</html>
