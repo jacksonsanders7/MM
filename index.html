@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Moose</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Student-to-Student Tutoring</p>
+          <h1>Mentor Moose</h1>
+          <p class="lead">
+            A friendly marketplace where students tutor students in math, science,
+            writing, coding, and more.
+          </p>
+          <a href="#tutors" class="btn">Find a Tutor</a>
+        </div>
+        <div class="card mascot">
+          <div class="emoji">🫎📚</div>
+          <p>
+            Learn from peers who recently mastered your classes.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="controls card">
+        <h2>Browse tutors</h2>
+        <form id="filterForm">
+          <label>
+            Subject
+            <select id="subjectFilter">
+              <option value="all">All subjects</option>
+            </select>
+          </label>
+          <label>
+            Max hourly rate ($)
+            <input id="rateFilter" type="number" min="10" max="100" step="5" value="60" />
+          </label>
+          <label>
+            Search name or skill
+            <input id="searchFilter" type="text" placeholder="e.g. calculus or jamie" />
+          </label>
+          <button type="submit" class="btn">Apply Filters</button>
+        </form>
+      </section>
+
+      <section id="tutors" class="grid"></section>
+
+      <section class="card how-it-works">
+        <h2>How it works</h2>
+        <ol>
+          <li>Students create tutor profiles with subjects, rates, and availability.</li>
+          <li>Other students browse and filter tutors based on their needs.</li>
+          <li>Request a session and connect using your school-approved tools.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Mentor Moose demo for GitHub Pages • Built with plain HTML, CSS, and JavaScript.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
